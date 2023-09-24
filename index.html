@@ -1,0 +1,224 @@
+<! DOCTYPE HTML>
+<html lang="ru-RU">
+	<head>
+		<title>Карта офиса. Переговорные. Вариант 1</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Карта офиса. Переговорные. Вариант 1" />
+		<link href="css/materialize.min.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="css/main.css" media="all" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/TIME_COLUMNS.js"></script>
+		<script type="text/javascript" src="js/utils.js"></script>
+		<script type="text/javascript" src="js/makeIcsFile.js"></script>
+		<script type="text/javascript" src="js/rowTemplate.js"></script>
+		<script type="text/javascript" src="js/selectLocationOptionsTemplate.js"></script>
+		<script type="text/javascript" src="js/selectedStore.js"></script>
+		<script type="text/javascript" src="js/subscribeActions.js"></script>
+		<script type="text/javascript" src="js/subscribeRows.js"></script>
+		<script type="text/javascript" src="js/fetchData.js"></script>
+		<script type="text/javascript" src="js/render.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</head>
+
+	<body>
+		<div id="first_screen">
+			<div id="first_screen_in">
+				<h1>Авторизация</h1>
+				<div class="first_screen_inp">
+					<input type="email" placeholder="Введите email" id="ema" />
+				</div>
+				<div class="first_screen_inp">
+					<input type="password" placeholder="Пароль" />
+				</div>
+				<div class="first_screen_btn">
+					<button id="senda">Войти</button>
+				</div>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container">
+				<div class="row">
+					<div class="col l6">
+						<div id="logo">
+							<div class="logo_pic">
+								<img src="images/plan.png" />
+							</div>
+							<div class="logo_text">
+								<div class="logo_zag">Карта офиса</div>
+								<div class="logo_pod">Переговорные</div>
+							</div>
+						</div>
+					</div>
+					<div class="col l6">
+						<div class="right-al">
+							<div id="user_photo">
+								<img src="images/pic.jpg" />
+							</div>
+							<div id="user_name">Петров Иван Иванович</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<div class="container">
+				<div class="row">
+					<div class="col l3">
+						<div id="filters">
+							<h3>Фильтры</h3>
+							<div class="row">
+								<div class="input-field col s12">
+									<input
+										placeholder="Пользователь"
+										id="first_name"
+										type="text"
+										class="validate"
+										disabled
+										value="Петров Иван Иванович"
+									/>
+									<label for="first_name">Выберите пользователя</label>
+								</div>
+								<div class="col s12">
+									<label for="date_select">Выберите дату</label>
+									<input type="date" class="datepicker" id="date_select" />
+								</div>
+								<div class="input-field col s12">
+									<select id="sel_floor"></select>
+									<label>Выберите этаж</label>
+								</div>
+								<div class="col s12">
+									<div class="min_zag">Подбор переговорных по оборудованию</div>
+									<p>
+										<input type="checkbox" class="filled-in" id="filled-in-box-1" checked="checked" />
+										<label for="filled-in-box-1">Проектор</label>
+									</p>
+									<p>
+										<input type="checkbox" class="filled-in" id="filled-in-box-2" checked="checked" />
+										<label for="filled-in-box-2">Доска</label>
+									</p>
+									<p>
+										<input type="checkbox" class="filled-in" id="filled-in-box-3" checked="checked" />
+										<label for="filled-in-box-3">Для онлайн-конференций</label>
+									</p>
+									<p>
+										<input type="checkbox" class="filled-in" id="filled-in-box-4" checked="checked" />
+										<label for="filled-in-box-4">Выделенный wi-fi</label>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col l9">
+						<div id="right-head">
+							<div class="row">
+								<div class="col l4 offset-l4">
+									<div class="timer">
+										<div class="time-left"><i class="mdi mdi-chevron-left"></i></div>
+										<div class="time_now">01 января 2023</div>
+										<div class="time-right"><i class="mdi mdi-chevron-right"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="right-und_head">
+							<div class="row">
+								<div class="col l8 offset-l4">
+									<div id="one_time_out_block">
+										<div class="one_time_out"><span>08:00</span></div>
+										<div class="one_time_out"><span>08:30</span></div>
+										<div class="one_time_out"><span>09:00</span></div>
+										<div class="one_time_out"><span>09:30</span></div>
+										<div class="one_time_out"><span>10:00</span></div>
+										<div class="one_time_out"><span>10:30</span></div>
+										<div class="one_time_out"><span>11:00</span></div>
+										<div class="one_time_out"><span>11:30</span></div>
+										<div class="one_time_out"><span>12:00</span></div>
+										<div class="one_time_out"><span>12:30</span></div>
+										<div class="one_time_out"><span>13:00</span></div>
+										<div class="one_time_out"><span>13:30</span></div>
+										<div class="one_time_out"><span>14:00</span></div>
+										<div class="one_time_out"><span>14:30</span></div>
+										<div class="one_time_out"><span>15:00</span></div>
+										<div class="one_time_out"><span>15:30</span></div>
+										<div class="one_time_out"><span>16:00</span></div>
+										<div class="one_time_out"><span>16:30</span></div>
+										<div class="one_time_out"><span>17:00</span></div>
+										<div class="one_time_out"><span>17:30</span></div>
+										<div class="one_time_out"><span>18:00</span></div>
+										<div class="one_time_out"><span>18:30</span></div>
+										<div class="one_time_out"><span>19:00</span></div>
+										<div class="one_time_out"><span>19:30</span></div>
+										<div class="one_time_out"><span>20:00</span></div>
+										<div class="one_time_out"><span>20:30</span></div>
+										<div class="one_time_out"><span>21:00</span></div>
+										<div class="one_time_out"><span>21:30</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="rows-container"></div>
+						<div class="right-foot">
+							<div class="row">
+								<div class="col l8 offset-l4">
+									<div class="row">
+										<div class="col l4">
+											<div class="one_reg">
+												<div class="gr_bl"></div>
+												<div class="one_reg_txt">Свободные</div>
+											</div>
+										</div>
+										<div class="col l4">
+											<div class="one_reg">
+												<div class="ye_bl"></div>
+												<div class="one_reg_txt">Выбранные</div>
+											</div>
+										</div>
+										<div class="col l4">
+											<div class="one_reg">
+												<div class="red_bl"></div>
+												<div class="one_reg_txt">Занятые</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="right-und-foot">
+							<div class="row">
+								<div class="col l8 offset-l4">
+									<div class="right_al">
+										<!-- <button id="create">Создать</button
+										><a class="download hide" id="downloadLink" download="event.ics">Скачать</a> -->
+										<!-- <a href="tst_2.msg" target="_blank" class="downloada">Открыть .msg</a>
+										<a href="tst2.ics" target="_blank" class="downloada">Открыть .ics</a> -->
+										<div id="btn_1">Сохранить</div>
+										<div id="btn_can">Отменить</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bg_bg">
+			<div class="bg_bg_bg">
+				<div id="bg_in">
+					<h2 id="title"></h2>
+					<div id="main_pic">
+						<img src="images/map.jpg" />
+					</div>
+					<div id="bg_about">
+						<b>Оборудование:</b> проектор, доска, выделенный wi-fi, оборудование для онлайн-конференций
+					</div>
+					<div id="bg_footer">
+						<div id="close_btn">Закрыть</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
