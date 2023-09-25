@@ -35,6 +35,8 @@ function subscribeActions() {
 		render();
 	});
 
+	$(".time-refresh").click(render);
+
 	$(".time-left").click(function () {
 		var date = new Date($("#date_select").val());
 		date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1));
