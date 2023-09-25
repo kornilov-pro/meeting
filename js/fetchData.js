@@ -2,12 +2,12 @@
  *
  * @param {Date} start
  * @param {Date} end
- * @returns {Promise<{
- *  user: string;
- *  start: Date;
- *  end: Date;
+ * @returns {Promise<Record<string, {
+ *  subject: string;
+ *  start: string;
+ *  end: string;
  *  location: string;
- * }[]>}
+ * }[]>>}
  */
 async function fetchData(start, end) {
 	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}`;

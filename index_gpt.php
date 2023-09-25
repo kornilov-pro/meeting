@@ -23,17 +23,17 @@ $ews_email = 'user1@staffmap.ru';
 $ews_password = '$y$vwhkA{#Ve';
 
 // E-mail пользователей, для отображения событий, все они должны поделиться своими календарями с юзером указанным в $ews_email
-$users = [
-    'user1@staffmap.ru',
-    'user2@staffmap.ru',
-    'user3@staffmap.ru',
-    'user4@staffmap.ru',
-    'user5@staffmap.ru',
-    'user6@staffmap.ru',
-    'user7@staffmap.ru',
-    'user8@staffmap.ru',
-    'user9@staffmap.ru',
-    'user10@staffmap.ru'
+$meetings = [
+    ['location' => 'Переговорная 1', 'user' => 'user1@staffmap.ru'],
+    ['location' => 'Переговорная 2', 'user' => 'user2@staffmap.ru'],
+    ['location' => 'Переговорная 3', 'user' => 'user3@staffmap.ru'],
+    ['location' => 'Переговорная 4', 'user' => 'user4@staffmap.ru'],
+    ['location' => 'Переговорная 5', 'user' => 'user5@staffmap.ru'],
+    ['location' => 'Переговорная 6', 'user' => 'user6@staffmap.ru'],
+    ['location' => 'Переговорная 7', 'user' => 'user7@staffmap.ru'],
+    ['location' => 'Переговорная 8', 'user' => 'user8@staffmap.ru'],
+    ['location' => 'Переговорная 9', 'user' => 'user9@staffmap.ru'],
+    ['location' => 'Переговорная 10', 'user' => 'user10@staffmap.ru']
 ];
 
 
@@ -54,11 +54,14 @@ $request->CalendarView->StartDate = $start_date->format('c');
 $request->CalendarView->EndDate = $end_date->format('c');
 
 $result = [];
-foreach ($users as $userEmail) {
+foreach ($meetings as $meeting) {
     $folder_id = new DistinguishedFolderIdType();
     $folder_id->Id = DistinguishedFolderIdNameType::CALENDAR;
     $folder_id->Mailbox = new EmailAddressType();
-    $folder_id->Mailbox->EmailAddress = $userEmail;
+    $folder_id->Mailbox->EmailAddress = $meeting['user'];
+
+    $location = $meeting['location'];
+    $result[$location] = [];
 
     $request->ParentFolderIds->DistinguishedFolderId = $folder_id;
 
@@ -92,11 +95,11 @@ foreach ($users as $userEmail) {
             throw new Exception("CalendarItem not exists");
 
         foreach ($response->ResponseMessages->FindItemResponseMessage[0]->RootFolder->Items->CalendarItem as $event) {
-            $result[] = [
+            $result[$location][] = [
                 "subject" => $event->Subject,
                 "start" => $event->Start,
                 "end" => $event->End,
-                "location" => $event->Organizer->Mailbox->Name ?? $userEmail,
+                "location" => $location,
             ];
         }
     } catch (\Throwable $e) {

@@ -11,16 +11,16 @@
  */
 async function loadGroupedData(start, end) {
 	var data = await fetchData(start, end);
-	var sortedData = [...data].sort(function ({ location: a }, { location: b }) {
-		return a < b ? -1 : a > b ? 1 : 0;
-	});
-	return sortedData
-		.map((event) => ({ ...event, start: new Date(event.start), end: new Date(event.end) }))
-		.map(({ subject, ...event }) => ({ ...event, user: subject }))
-		.reduce(
-			groupByReducer(({ location }) => location),
-			{}
-		);
+	var entries = Object.entries(data).map(([location, events]) => [
+		location,
+		events.map(({ subject, start, end }) => ({
+			location,
+			user: subject,
+			start: new Date(start),
+			end: new Date(end),
+		})),
+	]);
+	return Object.fromEntries(entries);
 }
 
 async function render() {
