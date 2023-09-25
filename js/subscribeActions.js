@@ -1,12 +1,4 @@
-/**
- * @param {Record<string, {
- *  user: string;
- *  start: Date;
- *  end: Date;
- *  location: string;
- * }[]>} groupedData
- */
-function subscribeActions(groupedData) {
+function subscribeActions() {
 	// Login
 
 	$("#senda").click(function () {
@@ -36,25 +28,25 @@ function subscribeActions(groupedData) {
 	});
 
 	$("#sel_floor").change(function () {
-		render(groupedData);
+		render();
 	});
 
 	$("#date_select").change(function () {
-		render(groupedData);
+		render();
 	});
 
 	$(".time-left").click(function () {
 		var date = new Date($("#date_select").val());
 		date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1));
 		document.getElementById("date_select").valueAsDate = date;
-		render(groupedData);
+		render();
 	});
 
 	$(".time-right").click(function () {
 		var date = new Date($("#date_select").val());
 		date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() + 1));
 		document.getElementById("date_select").valueAsDate = date;
-		render(groupedData);
+		render();
 	});
 
 	$("#close_btn").click(function () {

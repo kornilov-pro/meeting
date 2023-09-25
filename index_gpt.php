@@ -40,8 +40,8 @@ $users = [
 $client = new Client($ews_server, $ews_email, $ews_password, Client::VERSION_2016);
 
 // Set the start and end date for fetching events
-$start_date = new DateTime('2023-08-01 12:00:00', new DateTimeZone('UTC'));
-$end_date = new DateTime('2023-10-04 23:59:59', new DateTimeZone('UTC'));
+$start_date = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
+$end_date = new DateTime($_GET["end"] ?? "now", new DateTimeZone('UTC'));
 
 $request = new FindItemType();
 $request->Traversal = ItemQueryTraversalType::SHALLOW;

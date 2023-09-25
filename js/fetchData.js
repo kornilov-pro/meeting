@@ -1,5 +1,16 @@
-async function fetchData() {
-	var url = "index_gpt.php";
+/**
+ *
+ * @param {Date} start
+ * @param {Date} end
+ * @returns {Promise<{
+ *  user: string;
+ *  start: Date;
+ *  end: Date;
+ *  location: string;
+ * }[]>}
+ */
+async function fetchData(start, end) {
+	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}`;
 	return fetch(url).then((response) => response.json());
 	return [
 		{
