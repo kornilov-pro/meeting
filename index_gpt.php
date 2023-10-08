@@ -5,6 +5,7 @@ namespace Meeting;
 use DateTime;
 use DateTimeZone;
 use \jamesiarmes\PhpEws\Client;
+use PDO;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -15,13 +16,25 @@ require_once __DIR__  . "/vendor/autoload.php";
 // Configuration
 $config = require_once(__DIR__ . "/config.php");
 
+$meetings = $config["meetings"];
+$cacheEnable = $config["cache"]["enable"];
 $client = new Client($config["ews"]["server"], $config["ews"]["email"], $config["ews"]["password"], $config["ews"]["version"]);
 $getEwsEvents = new GetEwsEvents($client);
+$pdo = new PDO($config["cache"]["dsn"], $config["cache"]["username"], $config["cache"]["password"]);
+$getCachedEvents = new GetCachedEvents($pdo, $config["cache"]["table"]);
+$saveEventsToCache = new SaveEventsToCache($pdo, $config["cache"]["table"]);
+$cacheEvents = new CacheEventsFromEWS($getEwsEvents, $saveEventsToCache);
+$cacheStart = new DateTime($config["cache"]["start"]);
+$cacheEnd = new DateTime($config["cache"]["end"]);
 
+// Query
 $start = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
 $end = new DateTime($_GET["end"] ?? "now", new DateTimeZone('UTC'));
 
-$result = $getEwsEvents($config["meetings"], $start, $end);
+$isInCacheRange = $cacheStart <= $start && $end <= $cacheEnd;
+$useCache = $cacheEnable && $isInCacheRange;
+
+$result = $useCache ? $getCachedEvents($meetings, $start, $end) : $getEwsEvents($meetings, $start, $end);
 $result = array_map(function (array $events) {
     return array_map(function (Event $event) {
         return $event->array("c");

@@ -9,6 +9,15 @@ return [
         "password" => '$y$vwhkA{#Ve',
         "version" => Client::VERSION_2016
     ],
+    "cache" => [
+        "enable" => true,
+        "dsn" => "mysql:host=localhost:8889;dbname=meeting;charset=utf8",
+        "username" => "root",
+        "password" => "root",
+        "table" => "meeting",
+        "start" => "-1 month",
+        "end" => "+12 month"
+    ],
     // E-mail пользователей, для отображения событий, все они должны поделиться своими календарями с юзером указанным в ews.email
     "meetings" => [
         ['location' => 'Переговорная 1', 'user' => 'user1@staffmap.ru'],
