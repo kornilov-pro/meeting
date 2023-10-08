@@ -18,26 +18,9 @@ use jamesiarmes\PhpEws\Type\EmailAddressType;
 use jamesiarmes\PhpEws\Enumeration\ItemQueryTraversalType;
 
 // Configuration
-$ews_server = 'https://mail.office-map.ru/EWS/Exchange.asmx';
-$ews_email = 'user1@staffmap.ru';
-$ews_password = '$y$vwhkA{#Ve';
+$config = require_once(__DIR__ . "/config.php");
 
-// E-mail пользователей, для отображения событий, все они должны поделиться своими календарями с юзером указанным в $ews_email
-$meetings = [
-    ['location' => 'Переговорная 1', 'user' => 'user1@staffmap.ru'],
-    ['location' => 'Переговорная 2', 'user' => 'user2@staffmap.ru'],
-    ['location' => 'Переговорная 3', 'user' => 'user3@staffmap.ru'],
-    ['location' => 'Переговорная 4', 'user' => 'user4@staffmap.ru'],
-    ['location' => 'Переговорная 5', 'user' => 'user5@staffmap.ru'],
-    ['location' => 'Переговорная 6', 'user' => 'user6@staffmap.ru'],
-    ['location' => 'Переговорная 7', 'user' => 'user7@staffmap.ru'],
-    ['location' => 'Переговорная 8', 'user' => 'user8@staffmap.ru'],
-    ['location' => 'Переговорная 9', 'user' => 'user9@staffmap.ru'],
-    ['location' => 'Переговорная 10', 'user' => 'user10@staffmap.ru']
-];
-
-
-$client = new Client($ews_server, $ews_email, $ews_password, Client::VERSION_2016);
+$client = new Client($config["ews"]["server"], $config["ews"]["email"], $config["ews"]["password"], $config["ews"]["version"]);
 
 // Set the start and end date for fetching events
 $start_date = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
@@ -53,6 +36,7 @@ $request->CalendarView = new CalendarViewType();
 $request->CalendarView->StartDate = $start_date->format('c');
 $request->CalendarView->EndDate = $end_date->format('c');
 
+$meetings = $config["meetings"];
 $result = [];
 foreach ($meetings as $meeting) {
     $folder_id = new DistinguishedFolderIdType();
