@@ -53,3 +53,42 @@ function groupByReducer(getKey) {
 function pairwise(value, index, array) {
 	return [index > 0 ? array[index - 1] : null, value];
 }
+
+/**
+ *
+ * @param {RequestInfo | URL} input
+ * @param {RequestInit & {timeout: number}} [init]
+ * @returns
+ */
+async function fetchWithTimeout(input, init = {}) {
+	const { timeout = 8000 } = init;
+
+	const controller = new AbortController();
+	const id = setTimeout(() => controller.abort(), timeout);
+
+	const response = await fetch(input, {
+		...init,
+		signal: controller.signal,
+	});
+	clearTimeout(id);
+
+	return response;
+}
+
+/**
+ *
+ * @template T
+ * @template U
+ * @param {(repeat: (value: U) => void, value: U) => T | Promise<T>} fn
+ * @param {U} [initialValue]
+ * @returns {Promise<T>}
+ */
+function retry(fn, initialValue) {
+	return new Promise((resolve, reject) => {
+		var repeat = (value) => resolve(retry(fn, value));
+		Promise.resolve()
+			.then(() => fn(repeat, initialValue))
+			.then(resolve)
+			.catch(reject);
+	});
+}

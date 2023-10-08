@@ -1,3 +1,7 @@
+var INITIAL_TIMEOUT = 1000;
+var MAX_TIMEOUT = 150000;
+var TIMEOUT_MULTIPLIER = 3;
+
 /**
  *
  * @param {Date} start
@@ -11,7 +15,16 @@
  */
 async function fetchData(start, end) {
 	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}`;
-	return fetch(url).then((response) => response.json());
+	return retry(
+		(repeat, timeout) =>
+			fetchWithTimeout(url, { timeout })
+				.catch((e) => {
+					if (timeout < MAX_TIMEOUT && e.name === "AbortError") repeat(timeout * TIMEOUT_MULTIPLIER);
+					else throw e;
+				})
+				.then((response) => response.json()),
+		INITIAL_TIMEOUT
+	);
 	return [
 		{
 			subject: "Ivanov Ivan",
