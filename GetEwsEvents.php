@@ -46,7 +46,7 @@ class GetEwsEvents implements IGetEvents {
      * @param FindItemType $request 
      * @param string $location 
      * @param string $user 
-     * @return array[] 
+     * @return Event[] 
      */
     private function getMeetingEvents(FindItemType $request, string $location, string $user): array {
         $folder_id = new DistinguishedFolderIdType();
@@ -87,12 +87,12 @@ class GetEwsEvents implements IGetEvents {
                 throw new Exception("CalendarItem not exists");
 
             foreach ($response->ResponseMessages->FindItemResponseMessage[0]->RootFolder->Items->CalendarItem as $event) {
-                $result[] = [
-                    "subject" => $event->Subject,
-                    "start" => $event->Start,
-                    "end" => $event->End,
-                    "location" => $location,
-                ];
+                $result[] = new Event(
+                    $event->Subject,
+                    new DateTime($event->Start),
+                    new DateTime($event->End),
+                    $location
+                );
             }
         } catch (\Throwable $e) {
         }

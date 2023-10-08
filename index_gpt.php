@@ -22,6 +22,11 @@ $start = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
 $end = new DateTime($_GET["end"] ?? "now", new DateTimeZone('UTC'));
 
 $result = $getEwsEvents($config["meetings"], $start, $end);
+$result = array_map(function (array $events) {
+    return array_map(function (Event $event) {
+        return $event->array("c");
+    }, $events);
+}, $result);
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
