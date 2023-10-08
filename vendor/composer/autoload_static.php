@@ -67,6 +67,7 @@ class ComposerStaticInit8b097060044c6c33cb260edda4a8fc4c
         'M' => 
         array (
             'Microsoft\\PhpParser\\' => 20,
+            'Meeting\\' => 8,
         ),
         'C' => 
         array (
@@ -178,6 +179,10 @@ class ComposerStaticInit8b097060044c6c33cb260edda4a8fc4c
         'Microsoft\\PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/microsoft/tolerant-php-parser/src',
+        ),
+        'Meeting\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
         'Composer\\XdebugHandler\\' => 
         array (

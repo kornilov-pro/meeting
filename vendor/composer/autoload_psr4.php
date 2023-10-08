@@ -30,6 +30,7 @@ return array(
     'Phan\\' => array($vendorDir . '/phan/phan/src/Phan'),
     'PDepend\\' => array($vendorDir . '/pdepend/pdepend/src/main/php/PDepend'),
     'Microsoft\\PhpParser\\' => array($vendorDir . '/microsoft/tolerant-php-parser/src'),
+    'Meeting\\' => array($baseDir . '/'),
     'Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'Composer\\Pcre\\' => array($vendorDir . '/composer/pcre/src'),
