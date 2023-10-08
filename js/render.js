@@ -2,6 +2,7 @@
  *
  * @param {Date} start
  * @param {Date} end
+ * @param {boolean} [force]
  * @returns {Promise<Record<string, {
  *  user: string;
  *  start: Date;
@@ -9,8 +10,8 @@
  *  location: string;
  * }[]>>}
  */
-async function loadGroupedData(start, end) {
-	var data = await fetchData(start, end);
+async function loadGroupedData(start, end, force) {
+	var data = await fetchData(start, end, force);
 	var entries = Object.entries(data).map(([location, events]) => [
 		location,
 		events.map(({ subject, start, end }) => ({
@@ -23,7 +24,12 @@ async function loadGroupedData(start, end) {
 	return Object.fromEntries(entries);
 }
 
-async function render() {
+/**
+ *
+ * @param {boolean} [force]
+ * @returns
+ */
+async function render(force) {
 	var selectedDate = new Date($("#date_select").val());
 	var selectedLocation = $("#sel_floor").val() || "all";
 
@@ -31,7 +37,7 @@ async function render() {
 
 	document.getElementById("rows-container").innerHTML = "Загрузка...";
 
-	var groupedData = await loadGroupedData(withTime(selectedDate), withTime(selectedDate, 23, 59, 59));
+	var groupedData = await loadGroupedData(withTime(selectedDate), withTime(selectedDate, 23, 59, 59), force);
 	var currentSelectedDate = new Date($("#date_select").val());
 	var currentSelectedLocation = $("#sel_floor").val() || "all";
 	// если различаются, значит пользователь успел выбрать другие фильтры

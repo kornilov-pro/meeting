@@ -30,9 +30,12 @@ $cacheEnd = new DateTime($config["cache"]["end"]);
 // Query
 $start = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
 $end = new DateTime($_GET["end"] ?? "now", new DateTimeZone('UTC'));
+$force = ($_GET["force"] ?? "false") === "true" || ($_GET["force"] ?? "false") === "1";
 
 $isInCacheRange = $cacheStart <= $start && $end <= $cacheEnd;
 $useCache = $cacheEnable && $isInCacheRange;
+
+if ($useCache && $force) $cacheEvents($meetings, $cacheStart, $cacheEnd);
 
 $result = $useCache ? $getCachedEvents($meetings, $start, $end) : $getEwsEvents($meetings, $start, $end);
 $result = array_map(function (array $events) {

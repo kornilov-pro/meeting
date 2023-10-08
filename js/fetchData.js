@@ -1,4 +1,5 @@
 var INITIAL_TIMEOUT = 1000;
+var INITIAL_FORCE_TIMEOUT = 5000;
 var MAX_TIMEOUT = 150000;
 var TIMEOUT_MULTIPLIER = 3;
 
@@ -6,6 +7,7 @@ var TIMEOUT_MULTIPLIER = 3;
  *
  * @param {Date} start
  * @param {Date} end
+ * @param {boolean} [force]
  * @returns {Promise<Record<string, {
  *  subject: string;
  *  start: string;
@@ -13,8 +15,8 @@ var TIMEOUT_MULTIPLIER = 3;
  *  location: string;
  * }[]>>}
  */
-async function fetchData(start, end) {
-	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}`;
+async function fetchData(start, end, force) {
+	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}&force=${force ? "true" : "false"}`;
 	return retry(
 		(repeat, timeout) =>
 			fetchWithTimeout(url, { timeout })
@@ -23,7 +25,7 @@ async function fetchData(start, end) {
 					else throw e;
 				})
 				.then((response) => response.json()),
-		INITIAL_TIMEOUT
+		force ? INITIAL_FORCE_TIMEOUT : INITIAL_TIMEOUT
 	);
 	return [
 		{
