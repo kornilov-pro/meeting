@@ -192,7 +192,7 @@ class SoapClient extends \SoapClient
     protected function curlOptions($action, $request)
     {
         $options = $this->options['curlopts'] + array(
-            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $this->buildHeaders($action),
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
