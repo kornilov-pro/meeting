@@ -1,12 +1,6 @@
 function subscribeActions() {
 	// Login
 
-	$("#senda").click(function () {
-		$("#first_screen").fadeOut(0);
-		var inp = $("#ema").val();
-		$("#user_name").text(inp);
-	});
-
 	$("#btn_can").click(function () {
 		selectedStore = [];
 		$(".one_time").each(function () {

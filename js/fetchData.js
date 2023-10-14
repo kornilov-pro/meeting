@@ -17,14 +17,19 @@ var TIMEOUT_MULTIPLIER = 3;
  */
 async function fetchData(start, end, force) {
 	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}&force=${force ? "true" : "false"}`;
+	var token = await getToken();
+	var headers = { [CONFIG.header_token_fieldname]: token };
 	return retry(
 		(repeat, timeout) =>
-			fetchWithTimeout(url, { timeout })
+			fetchWithTimeout(url, { timeout, headers })
 				.catch((e) => {
 					if (timeout < MAX_TIMEOUT && e.name === "AbortError") repeat(timeout * TIMEOUT_MULTIPLIER);
 					else throw e;
 				})
-				.then((response) => response.json()),
+				.then((response) => {
+					if (response.status === 403) redirectToLogin();
+					return response.json();
+				}),
 		force ? INITIAL_FORCE_TIMEOUT : INITIAL_TIMEOUT
 	);
 	return [

@@ -18,6 +18,13 @@ return [
         "start" => "-1 month",
         "end" => "+12 month"
     ],
+    "auth" => [
+        "enable" => true,
+        "leadermap_workspace_id" => 1,
+        "leadermap_bootstrap_filename" => "C:\inetpub\windemoadmin\www\__bootstrap.php",
+        "url_token_fieldname" => "token",
+        "header_token_fieldname" => "Token"
+    ],
     // E-mail пользователей, для отображения событий, все они должны поделиться своими календарями с юзером указанным в ews.email
     "meetings" => [
         ['location' => 'Переговорная 1', 'user' => 'user1@staffmap.ru'],
