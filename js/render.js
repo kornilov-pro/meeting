@@ -48,9 +48,13 @@ async function render(force) {
 	document.getElementById("sel_floor").innerHTML = selectLocationOptionsTemplate(locations, selectedLocation);
 	$("select").material_select();
 
+	var highlighted = await getHighlightedLocation();
 	var html = Object.entries(groupedData)
 		.filter(([location]) => selectedLocation == "all" || location == selectedLocation)
-		.map(([location, events]) => rowTemplate(location, selectedDate, events, selectedStore))
+		.map(([location, events]) => {
+			var disable = highlighted && location != highlighted;
+			return rowTemplate(location, selectedDate, events, selectedStore, disable);
+		})
 		.join("");
 
 	document.getElementById("rows-container").innerHTML = html;

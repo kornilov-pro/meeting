@@ -25,9 +25,10 @@ function columnTemplate(location, start, end, user = "", selected = []) {
  * @param {Date} date
  * @param {{user: string, start: Date, end: Date}[]} events
  * @param {{start: string, end: string, location: string}[]} selected
+ * @param {boolean} disable
  * @returns {string}
  */
-function rowTemplate(location, date, events, selected) {
+function rowTemplate(location, date, events, selected, disable) {
 	var maxDate = withTime(date, 23, 59, 59);
 	var columns = TIME_COLUMNS.map(([h, m]) => withTime(date, h, m))
 		.concat([maxDate])
@@ -37,8 +38,8 @@ function rowTemplate(location, date, events, selected) {
 		.map(([start, end, event]) => [start, end, event ? event.user : ""])
 		.map(([start, end, user]) => columnTemplate(location, start, end, user, selected))
 		.join("");
-
-	return /*html*/ `<div class="one_stoke" data-floor="${location}">
+	var disableClass = disable ? " disable" : "";
+	return /*html*/ `<div class="one_stoke${disableClass}" data-floor="${location}">
 	<div class="row">
 		<div class="col l4">
 			<div class="info_btn" data-title="${location}">

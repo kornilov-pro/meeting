@@ -120,6 +120,22 @@ div#user_name {
 	margin: 15px 0;
 }
 
+.one_stoke.disable .row {
+	position: relative;
+}
+
+.one_stoke.disable .row::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+.one_stoke.disable .another {
+	position: static;
+}
+
 .container .row {
 	margin-bottom: 0;
 }
