@@ -38,6 +38,58 @@ END:VEVENT
 }
 
 /**
+ * Возвращает хеш данных события без учета времени
+ *
+ * @param {{
+ *  eventName: string,
+ *  start: Date,
+ *  end: Date,
+ *  description?: string,
+ *  location?: string,
+ *  organizer?: string,
+ *  status?: string,
+ *  priority?: number}} event
+ */
+function eventPayloadHash(event) {
+	return (
+		"" +
+		(event.eventName ?? "") +
+		(event.description ?? "") +
+		(event.location ?? "") +
+		(event.organizer ?? "") +
+		(event.status ?? "") +
+		(event.priority ?? "")
+	);
+}
+
+/**
+ * Проверят, идет ли события b сразу после a
+ *
+ * @param {{
+ *  eventName: string,
+ *  start: Date,
+ *  end: Date,
+ *  description?: string,
+ *  location?: string,
+ *  organizer?: string,
+ *  status?: string,
+ *  priority?: number}} a
+ * @param {{
+ *  eventName: string,
+ *  start: Date,
+ *  end: Date,
+ *  description?: string,
+ *  location?: string,
+ *  organizer?: string,
+ *  status?: string,
+ *  priority?: number}} b
+ * @returns {boolean}
+ */
+function isSequentialEvents(a, b) {
+	return a.end.getTime() == b.start.getTime();
+}
+
+/**
  *
  * @param {{
  *  eventName: string,
@@ -51,10 +103,18 @@ END:VEVENT
  * @returns {string}
  */
 function makeIcsFile(events) {
-	var data = `BEGIN:VCALENDAR
-VERSION:2.0
-${events.map(icsEvent).join("")}END:VCALENDAR
-`;
+	var hash = eventPayloadHash;
+	events = events
+		.sort((a, b) => (hash(a) < hash(b) ? -1 : hash(a) > hash(b) ? 1 : a.start.getTime() - b.start.getTime()))
+		.reduce((acc, event) => {
+			var last = acc[acc.length - 1];
+			return last && isSequentialEvents(last, event) && hash(last) == hash(event)
+				? [...acc.slice(0, -1), { ...last, end: event.end }]
+				: [...acc, event];
+		}, [])
+		.map(icsEvent)
+		.join("");
+	var data = `BEGIN:VCALENDAR\nVERSION:2.0\n${events}END:VCALENDAR\n`;
 	var file = new File([data], { type: "text/plain" });
 
 	// If we are replacing a previously generated file we need to
