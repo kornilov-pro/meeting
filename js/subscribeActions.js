@@ -3,14 +3,14 @@
 /// <reference path="./render.js" />
 
 function subscribeActions() {
-	// Login
-
-	$("#btn_can").click(function () {
+	function cancel() {
 		selectedStore = [];
 		$(".one_time").each(function () {
 			$(this).removeClass("selecteda");
 		});
-	});
+	}
+
+	$("#btn_can").click(cancel);
 
 	$("#btn_1").click(function () {
 		var events = selectedStore.map(({ start, end, location }) => ({
@@ -19,6 +19,7 @@ function subscribeActions() {
 			end: new Date(end),
 			location,
 		}));
+		cancel();
 		var link = document.createElement("a");
 		link.href = makeIcsFile(events);
 		link.download = "events.ics";
