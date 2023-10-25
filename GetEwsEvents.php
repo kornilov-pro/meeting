@@ -17,12 +17,17 @@ use jamesiarmes\PhpEws\Enumeration\ItemQueryTraversalType;
 class GetEwsEvents implements IGetEvents {
 
     private Client $client;
+    private array $meetings;
 
-    function __construct(Client $client) {
+    function __construct(
+        Client $client,
+        array $meetings
+    ) {
         $this->client = $client;
+        $this->meetings = $meetings;
     }
 
-    public function __invoke(array $meetings, DateTime $start, DateTime $end): array {
+    public function __invoke(DateTime $start, DateTime $end): array {
         $request = new FindItemType();
         $request->Traversal = ItemQueryTraversalType::SHALLOW;
         $request->ItemShape = new \jamesiarmes\PhpEws\Type\ItemResponseShapeType();
@@ -33,11 +38,10 @@ class GetEwsEvents implements IGetEvents {
         $request->CalendarView->StartDate = $start->format('c');
         $request->CalendarView->EndDate = $end->format('c');
 
-        return array_reduce($meetings, function (array $result, array $meeting) use ($request) {
+        return array_reduce($this->meetings, function (array $result, array $meeting) use ($request) {
             $location = $meeting["location"];
             $user = $meeting["user"];
-            $result[$location] = $this->getMeetingEvents($request, $location, $user);
-            return $result;
+            return array_merge($result, $this->getMeetingEvents($request, $location, $user));
         }, []);
     }
 

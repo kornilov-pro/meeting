@@ -17,7 +17,7 @@ $config = require_once(__DIR__ . "/config.php");
 if (!$config["cache"]["enable"]) die("Cache disabled");
 
 $client = new Client($config["ews"]["server"], $config["ews"]["email"], $config["ews"]["password"], $config["ews"]["version"]);
-$getEwsEvents = new GetEwsEvents($client);
+$getEwsEvents = new GetEwsEvents($client, $config["meetings"]);
 $pdo = new PDO($config["cache"]["dsn"], $config["cache"]["username"], $config["cache"]["password"]);
 $saveEventsToCache = new SaveEventsToCache($pdo, $config["cache"]["table"]);
 $cacheEvents = new CacheEventsFromEWS($getEwsEvents, $saveEventsToCache);
@@ -25,4 +25,4 @@ $cacheEvents = new CacheEventsFromEWS($getEwsEvents, $saveEventsToCache);
 $cacheStart = new DateTime($config["cache"]["start"]);
 $cacheEnd = new DateTime($config["cache"]["end"]);
 
-$cacheEvents($config["meetings"], $cacheStart, $cacheEnd);
+$cacheEvents($cacheStart, $cacheEnd);

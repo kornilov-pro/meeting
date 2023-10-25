@@ -20,7 +20,7 @@ $authConfig = $config["auth"];
 $meetings = $config["meetings"];
 $cacheEnable = $config["cache"]["enable"];
 $client = new Client($config["ews"]["server"], $config["ews"]["email"], $config["ews"]["password"], $config["ews"]["version"]);
-$getEwsEvents = new GetEwsEvents($client);
+$getEwsEvents = new GetEwsEvents($client, $meetings);
 $pdo = $cacheEnable ? new PDO($config["cache"]["dsn"], $config["cache"]["username"], $config["cache"]["password"]) : new NullPDO();
 $getCachedEvents = new GetCachedEvents($pdo, $config["cache"]["table"]);
 $saveEventsToCache = new SaveEventsToCache($pdo, $config["cache"]["table"]);
@@ -31,6 +31,7 @@ $isLeaderMapTokenValid = new IsLeaderMapTokenValid(
     $authConfig["leadermap_workspace_id"],
     $authConfig["leadermap_bootstrap_filename"]
 );
+$groupEvents = new GroupEvents($meetings);
 
 // Query
 $start = new DateTime($_GET["start"] ?? "now", new DateTimeZone('UTC'));
@@ -54,8 +55,12 @@ $useCache = $cacheEnable && $isInCacheRange;
 
 if ($useCache && $force) $cacheEvents($meetings, $cacheStart, $cacheEnd);
 
-$result = $useCache ? $getCachedEvents($meetings, $start, $end) : $getEwsEvents($meetings, $start, $end);
-$result = array_map(function (array $events) {
+$result = $useCache ? $getCachedEvents($start, $end) : $getEwsEvents($start, $end);
+usort($result, function (Event $a, Event $b) { // sort by start
+    return $a->start->getTimestamp() - $b->end->getTimestamp();
+});
+$result = $groupEvents($result);
+$result = array_map(function (array $events) { // to array
     return array_map(function (Event $event) {
         return $event->array("c");
     }, $events);

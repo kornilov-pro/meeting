@@ -21,18 +21,8 @@ class CacheEventsFromEWS {
      * @param DateTime $end 
      * @return void
      */
-    function __invoke(array $meetings, DateTime $start, DateTime $end) {
-        $events = ($this->getEvents)($meetings, $start, $end);
-        $events = $this->flat($events);
+    function __invoke(DateTime $start, DateTime $end) {
+        $events = ($this->getEvents)($start, $end);
         ($this->save)($events);
-    }
-
-    /**
-     * 
-     * @param array<string, Event[]> $events 
-     * @return Event[] 
-     */
-    private function flat(array $events): array {
-        return array_merge(...array_values($events));
     }
 }
