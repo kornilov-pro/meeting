@@ -19,15 +19,18 @@ class GetCachedEvents implements IGetEvents {
     }
 
     public function __invoke(array $meetings, DateTime $start, DateTime $end): array {
-        $query = "SELECT location, subject, start, end, location FROM $this->table WHERE start <= :end AND end >= :start";
+        $query = "SELECT location, subject, start, end, location, meeting_email FROM $this->table WHERE start <= :end AND end >= :start";
         $stmt = $this->pdo->prepare($query, self::OPTIONS);
         $stmt->execute([
             "start" => $start->format(self::SQL_DATETIME_FORMAT),
             "end" => $end->format(self::SQL_DATETIME_FORMAT),
         ]);
-        $result = $stmt->fetchAll(PDO::FETCH_FUNC | PDO::FETCH_GROUP, function ($subject, $start, $end, $location) {
-            return new Event($subject, new DateTime($start), new DateTime($end), $location);
-        });
+        $result = $stmt->fetchAll(
+            PDO::FETCH_FUNC | PDO::FETCH_GROUP,
+            function ($subject, $start, $end, $location, $meeting_email) {
+                return new Event($subject, new DateTime($start), new DateTime($end), $location, $meeting_email);
+            }
+        );
         $locations = array_map(function (array $meeting) {
             return $meeting["location"];
         }, $meetings);

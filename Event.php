@@ -9,12 +9,14 @@ class Event {
     public DateTime $start;
     public DateTime $end;
     public string $location;
+    public string $meeting_email;
 
-    function __construct(string $subject, DateTime $start, DateTime $end, string $location) {
+    function __construct(string $subject, DateTime $start, DateTime $end, string $location, string $meeting_email) {
         $this->subject = $subject;
         $this->start = $start;
         $this->end = $end;
         $this->location = $location;
+        $this->meeting_email = $meeting_email;
     }
 
     public function array(string $dateFormat): array {
@@ -23,6 +25,7 @@ class Event {
             "start" => $this->start->format($dateFormat),
             "end" => $this->end->format($dateFormat),
             "location" => $this->location,
+            "meeting_email" => $this->meeting_email,
         ];
     }
 
@@ -31,7 +34,8 @@ class Event {
             $array["subject"] ?? "",
             new DateTime($array["start"]),
             new DateTime($array["end"]),
-            $array["location"]
+            $array["location"],
+            $array["meeting_email"],
         );
     }
 }

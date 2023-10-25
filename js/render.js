@@ -8,14 +8,16 @@
  *  start: Date;
  *  end: Date;
  *  location: string;
+ *  meeting_email: string;
  * }[]>>}
  */
 async function loadGroupedData(start, end, force) {
 	var data = CONFIG["use_test_data"] ? await fetchTestData(start, end, force) : await fetchData(start, end, force);
 	var entries = Object.entries(data).map(([location, events]) => [
 		location,
-		events.map(({ subject, start, end }) => ({
+		events.map(({ subject, start, end, meeting_email }) => ({
 			location,
+			meeting_email,
 			user: subject,
 			start: new Date(start),
 			end: new Date(end),

@@ -92,7 +92,8 @@ class GetEwsEvents implements IGetEvents {
                         $event->Subject,
                         new DateTime($event->Start),
                         new DateTime($event->End),
-                        $location
+                        $location,
+                        $user
                     );
                 } catch (\Throwable $e) {
                 }

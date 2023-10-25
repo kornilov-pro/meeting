@@ -34,7 +34,8 @@ class SaveEventsToCache {
     }
 
     private function insert(Event $event): void {
-        $sql = "INSERT INTO $this->table (subject, start, end, location) VALUES (:subject, :start, :end, :location)";
+        $sql = "INSERT INTO $this->table (subject, start, end, location, meeting_email)";
+        $sql .= " VALUES (:subject, :start, :end, :location, :meeting_email)";
         $this->pdo->prepare($sql, self::OPTIONS)->execute($event->array(self::SQL_DATETIME_FORMAT));
     }
 }
