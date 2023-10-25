@@ -1,3 +1,8 @@
+/// <reference path="../config.js" />
+/// <reference path="./utils.js" />
+/// <reference path="./redirectToLogin.js" />
+/// <reference path="./getToken.js" />
+
 var INITIAL_TIMEOUT = 1000;
 var INITIAL_FORCE_TIMEOUT = 5000;
 var MAX_TIMEOUT = 150000;

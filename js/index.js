@@ -1,3 +1,7 @@
+/// <reference path="./selectLocationOptionsTemplate.js" />
+/// <reference path="./subscribeActions.js" />
+/// <reference path="./render.js" />
+
 $(window).resize(function () {
 	$(".one_time").each(function () {
 		var a = $(this).width();

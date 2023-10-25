@@ -1,3 +1,5 @@
+/// <reference path="./selectedStore.js" />
+
 function subscribeRows() {
 	$(".one_time").each(function () {
 		var a = $(this).width();

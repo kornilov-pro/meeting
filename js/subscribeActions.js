@@ -1,3 +1,7 @@
+/// <reference path="./makeIcsFile.js" />
+/// <reference path="./selectedStore.js" />
+/// <reference path="./render.js" />
+
 function subscribeActions() {
 	// Login
 

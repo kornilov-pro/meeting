@@ -1,3 +1,10 @@
+/// <reference path="./fetchTestData.js" />
+/// <reference path="./fetchData.js" />
+/// <reference path="./selectLocationOptionsTemplate.js" />
+/// <reference path="./rowTemplate.js" />
+/// <reference path="./utils.js" />
+/// <reference path="./subscribeRows.js" />
+
 /**
  *
  * @param {Date} start

@@ -1,3 +1,5 @@
+/// <reference path="../config.js" />
+
 /**
  *
  * @returns {Promise<string>}

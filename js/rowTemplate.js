@@ -1,3 +1,6 @@
+/// <reference path="./TIME_COLUMNS.js" />
+/// <reference path="./utils.js" />
+
 /**
  *
  * @param {string} location
