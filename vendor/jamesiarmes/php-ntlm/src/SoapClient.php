@@ -74,9 +74,7 @@ class SoapClient extends \SoapClient
         $this->__last_request = $request;
         $this->__last_request_headers = $headers;
         
-
-        $location = 'https://mail.office-map.ru/EWS/Exchange.asmx';
-        //$location = 'mail.office-map.ru/ecp';
+        $location = $this->options["location"];
         // Only reinitialize curl handle if the location is different.
         if (!$this->ch
             || curl_getinfo($this->ch, CURLINFO_EFFECTIVE_URL) != $location) {

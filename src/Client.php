@@ -1609,7 +1609,7 @@ class Client
             array(
                 'user' => $this->username,
                 'password' => $this->password,
-                'location' => 'https://' . $this->server . '/EWS/Exchange.asmx',
+                'location' => $this->server,
                 'classmap' => $this->classMap(),
                 'curlopts' => $this->curl_options,
                 'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
