@@ -10,7 +10,7 @@ return [
         "version" => Client::VERSION_2016
     ],
     "cache" => [
-        "enable" => true,
+        "enable" => false,
         "dsn" => "mysql:host=localhost:8889;dbname=meeting;charset=utf8",
         "username" => "root",
         "password" => "root",
@@ -19,7 +19,7 @@ return [
         "end" => "+12 month"
     ],
     "auth" => [
-        "enable" => true,
+        "enable" => false,
         "leadermap_workspace_id" => 1,
         "leadermap_bootstrap_filename" => "C:\inetpub\windemoadmin\www\__bootstrap.php",
         "url_token_fieldname" => "token",

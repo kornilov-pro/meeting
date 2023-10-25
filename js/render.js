@@ -11,7 +11,7 @@
  * }[]>>}
  */
 async function loadGroupedData(start, end, force) {
-	var data = await fetchData(start, end, force);
+	var data = CONFIG["use_test_data"] ? await fetchTestData(start, end, force) : await fetchData(start, end, force);
 	var entries = Object.entries(data).map(([location, events]) => [
 		location,
 		events.map(({ subject, start, end }) => ({
