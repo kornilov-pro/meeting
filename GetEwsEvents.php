@@ -87,12 +87,15 @@ class GetEwsEvents implements IGetEvents {
                 throw new Exception("CalendarItem not exists");
 
             foreach ($response->ResponseMessages->FindItemResponseMessage[0]->RootFolder->Items->CalendarItem as $event) {
-                $result[] = new Event(
-                    $event->Subject,
-                    new DateTime($event->Start),
-                    new DateTime($event->End),
-                    $location
-                );
+                try {
+                    $result[] = new Event(
+                        $event->Subject,
+                        new DateTime($event->Start),
+                        new DateTime($event->End),
+                        $location
+                    );
+                } catch (\Throwable $e) {
+                }
             }
         } catch (\Throwable $e) {
         }
