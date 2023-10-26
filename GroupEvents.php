@@ -21,7 +21,10 @@ class GroupEvents {
             $meetingEvents = array_filter($events, function (Event $event) use ($location) {
                 return $event->location == $location;
             });
-            $result[$location] = array_values($meetingEvents);
+            $result[$location] = [
+                "meeting_email" => $meeting["user"],
+                "events" => array_values($meetingEvents)
+            ];
             return $result;
         }, []);
     }

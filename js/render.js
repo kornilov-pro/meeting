@@ -11,24 +11,29 @@
  * @param {Date} end
  * @param {boolean} [force]
  * @returns {Promise<Record<string, {
- *  user: string;
- *  start: Date;
- *  end: Date;
- *  location: string;
- *  meeting_email: string;
- * }[]>>}
+ *  meeting_email: string,
+ *  events: {
+ *    user: string;
+ *    start: Date;
+ *    end: Date;
+ *    location: string;
+ *    meeting_email: string;
+ *  }[]}>>}
  */
 async function loadGroupedData(start, end, force) {
 	var data = CONFIG["use_test_data"] ? await fetchTestData(start, end, force) : await fetchData(start, end, force);
-	var entries = Object.entries(data).map(([location, events]) => [
+	var entries = Object.entries(data).map(([location, { meeting_email, events }]) => [
 		location,
-		events.map(({ subject, start, end, meeting_email }) => ({
-			location,
+		{
 			meeting_email,
-			user: subject,
-			start: new Date(start),
-			end: new Date(end),
-		})),
+			events: events.map(({ subject, start, end }) => ({
+				location,
+				meeting_email,
+				user: subject,
+				start: new Date(start),
+				end: new Date(end),
+			})),
+		},
 	]);
 	return Object.fromEntries(entries);
 }
@@ -60,9 +65,9 @@ async function render(force) {
 	var highlighted = await getHighlightedLocation();
 	var html = Object.entries(groupedData)
 		.filter(([location]) => selectedLocation == "all" || location == selectedLocation)
-		.map(([location, events]) => {
+		.map(([location, { meeting_email, events }]) => {
 			var disable = highlighted && location != highlighted;
-			return rowTemplate(location, selectedDate, events, selectedStore, disable);
+			return rowTemplate(location, meeting_email, selectedDate, events, selectedStore, disable);
 		})
 		.join("");
 

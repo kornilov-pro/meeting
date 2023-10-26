@@ -60,10 +60,13 @@ usort($result, function (Event $a, Event $b) { // sort by start
     return $a->start->getTimestamp() - $b->end->getTimestamp();
 });
 $result = $groupEvents($result);
-$result = array_map(function (array $events) { // to array
-    return array_map(function (Event $event) {
-        return $event->array("c");
-    }, $events);
+$result = array_map(function (array $data) { // to array
+    return [
+        "meeting_email" => $data["meeting_email"],
+        "events" => array_map(function (Event $event) {
+            return $event->array("c");
+        }, $data["events"])
+    ];
 }, $result);
 
 header('Content-Type: application/json; charset=utf-8');

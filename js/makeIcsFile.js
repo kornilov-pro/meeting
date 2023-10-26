@@ -13,6 +13,7 @@ function icsDateTime(date) {
  *  eventName: string,
  *  start: Date,
  *  end: Date,
+ *  meeting_email: string,
  *  description?: string,
  *  location?: string,
  *  organizer?: string,
@@ -21,7 +22,10 @@ function icsDateTime(date) {
  * @param {number} i?
  * @returns {string}
  */
-function icsEvent({ eventName, start, end, description, location, organizer, status, priority } = data, i = 0) {
+function icsEvent(
+	{ eventName, start, end, meeting_email, description, location, organizer, status, priority } = data,
+	i = 0
+) {
 	return `BEGIN:VEVENT
 SUMMARY:${eventName}
 DTSTART:${icsDateTime(start)}
@@ -95,6 +99,7 @@ function isSequentialEvents(a, b) {
  *  eventName: string,
  *  start: Date,
  *  end: Date,
+ *  meeting_email: string,
  *  description?: string,
  *  location?: string,
  *  organizer?: string,

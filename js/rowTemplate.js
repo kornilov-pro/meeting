@@ -4,13 +4,14 @@
 /**
  *
  * @param {string} location
+ * @param {string} meeting_email
  * @param {Date} start
  * @param {Date} end
  * @param {string} user
  * @param {{start: string, end: string, location: string}[]} selected
  * @returns {string}
  */
-function columnTemplate(location, start, end, user = "", selected = []) {
+function columnTemplate(location, meeting_email, start, end, user = "", selected = []) {
 	var isoStart = start.toISOString();
 	var isSelected = selected.filter(({ start, location: l }) => isoStart == start && location == l).length;
 	var className = "one_time" + (user ? " another" : "") + (isSelected ? " selecteda" : "");
@@ -19,19 +20,23 @@ function columnTemplate(location, start, end, user = "", selected = []) {
 	var startAttribute = `data-start="${isoStart}"`;
 	var endAttribute = `data-end="${end.toISOString()}"`;
 	var userAttribute = user ? ` data-user="${user}"` : "";
-	return /*html*/ `<div ${classAttribute} ${locationAttribute} ${endAttribute} ${startAttribute}${userAttribute}></div>`;
+	var meetingEmailAttribute = `data-meeting_email=${meeting_email}`;
+	var attributes = `${classAttribute} ${locationAttribute} ${endAttribute} ${startAttribute}${userAttribute}`;
+	attributes += ` ${meetingEmailAttribute}`;
+	return /*html*/ `<div ${attributes}></div>`;
 }
 
 /**
  *
  * @param {string} location
+ * @param {string} meeting_email
  * @param {Date} date
- * @param {{user: string, start: Date, end: Date}[]} events
- * @param {{start: string, end: string, location: string}[]} selected
+ * @param {{user: string, start: Date, end: Date, meeting_email: string}[]} events
+ * @param {{start: string, end: string, location: string, meeting_email: string}[]} selected
  * @param {boolean} disable
  * @returns {string}
  */
-function rowTemplate(location, date, events, selected, disable) {
+function rowTemplate(location, meeting_email, date, events, selected, disable) {
 	var maxDate = withTime(date, 23, 59, 59);
 	var columns = TIME_COLUMNS.map(([h, m]) => withTime(date, h, m))
 		.concat([maxDate])
@@ -39,7 +44,7 @@ function rowTemplate(location, date, events, selected, disable) {
 		.filter(([last]) => last)
 		.map(([start, end]) => [start, end, events.find(isInInterval({ start, end }))])
 		.map(([start, end, event]) => [start, end, event ? event.user : ""])
-		.map(([start, end, user]) => columnTemplate(location, start, end, user, selected))
+		.map(([start, end, user]) => columnTemplate(location, meeting_email, start, end, user, selected))
 		.join("");
 	var disableClass = disable ? " disable" : "";
 	return /*html*/ `<div class="one_stoke${disableClass}" data-floor="${location}">

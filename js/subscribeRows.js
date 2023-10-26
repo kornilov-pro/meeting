@@ -14,6 +14,7 @@ function subscribeRows() {
 			var attrLocation = $(this).attr("data-location");
 			var attrStart = $(this).attr("data-start");
 			var attrEnd = $(this).attr("data-end");
+			var meeting_email = $(this).attr("data-meeting_email");
 			var isSelected = selectedStore.filter(
 				({ start, location }) => start == attrStart && location == attrLocation
 			).length;
@@ -24,7 +25,7 @@ function subscribeRows() {
 				);
 			} else {
 				$(this).addClass("selecteda");
-				selectedStore = [...selectedStore, { start: attrStart, end: attrEnd, location: attrLocation }];
+				selectedStore = [...selectedStore, { start: attrStart, end: attrEnd, location: attrLocation, meeting_email }];
 			}
 		});
 	});

@@ -13,11 +13,12 @@ function subscribeActions() {
 	$("#btn_can").click(cancel);
 
 	$("#btn_1").click(function () {
-		var events = selectedStore.map(({ start, end, location }) => ({
+		var events = selectedStore.map(({ start, end, location, meeting_email }) => ({
 			eventName: "Бронирование",
 			start: new Date(start),
 			end: new Date(end),
 			location,
+			meeting_email,
 		}));
 		cancel();
 		var link = document.createElement("a");

@@ -14,12 +14,15 @@ var TIMEOUT_MULTIPLIER = 3;
  * @param {Date} end
  * @param {boolean} [force]
  * @returns {Promise<Record<string, {
- *  subject: string;
- *  start: string;
- *  end: string;
- *  location: string;
- *  meeting_email: string;
- * }[]>>}
+ *  meeting_email: string,
+ *  events: {
+ *    subject: string;
+ *    start: string;
+ *    end: string;
+ *    location: string;
+ *    meeting_email: string;
+ * }[]
+ * }>>}
  */
 async function fetchData(start, end, force) {
 	var url = `index_gpt.php?start=${start.toISOString()}&end=${end.toISOString()}&force=${force ? "true" : "false"}`;
