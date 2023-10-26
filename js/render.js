@@ -38,6 +38,30 @@ async function loadGroupedData(start, end, force) {
 	return Object.fromEntries(entries);
 }
 
+function doNum() {
+	$(".stroke_time").each(function (i) {
+		var l = i + 1;
+		$(this).attr("alex-numer-row", l);
+		$(".one_time").each(function (i) {
+			var n = i + 1;
+			var k = $(this).parent(".stroke_time").attr("alex-numer-row");
+			var s = n - 28 * k + 28;
+			$(this).attr("alex-numer", s);
+		});
+	});
+	$(".one_time").hover(function () {
+		var nnn = $(this).attr("alex-numer");
+		$(".one_time_out").each(function () {
+			var ooo = $(this).attr("alex-num");
+			if (nnn === ooo) {
+				$(this).addClass("didi");
+			} else {
+				$(this).removeClass("didi");
+			}
+		});
+	});
+}
+
 /**
  *
  * @param {boolean} [force]
@@ -74,4 +98,5 @@ async function render(force) {
 	document.getElementById("rows-container").innerHTML = html;
 
 	subscribeRows();
+	doNum();
 }

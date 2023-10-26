@@ -22,3 +22,34 @@ $(window).ready(function () {
 	subscribeActions();
 	render();
 });
+
+$(document).ready(function () {
+	var wh = $(window).height();
+	var bh = wh - 320;
+	$("#rows-container").height(bh);
+});
+$(window).resize(function () {
+	var wh = $(window).height();
+	console.log(wh);
+	var bh = wh - 320;
+	$("#rows-container").height(bh);
+});
+
+$(document).ready(function () {
+	const url = new URL(window.location.href);
+	var uri = window.location.toString();
+	if (url.searchParams.has("highlight")) {
+		$("#select_des_right").fadeIn(0);
+	}
+	$("#select_des_right").click(function () {
+		var clean_uri = uri.substring(0, uri.indexOf("?"));
+		window.history.replaceState({}, document.title, clean_uri);
+		$(".one_stoke").each(function () {
+			$(this).removeClass("disable");
+		});
+	});
+	$(".one_time_out").each(function (i) {
+		var n = i + 1;
+		$(this).attr("alex-num", n);
+	});
+});

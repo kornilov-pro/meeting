@@ -1,0 +1,132 @@
+body {
+    min-height: 500px
+}
+
+div#rows-container {
+    overflow: scroll;
+}
+
+.right-und-foot {
+    margin-bottom: 10px;
+}
+
+div#select_des_right {
+    text-align: right;
+    margin-top: 20px;
+    display: none;
+}
+
+div#select_des {
+    display: inline-block;
+    background-color: #07a0ac;
+    color: #fff;
+    line-height: 30px;
+    height: 30px;
+    border-radius: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+span.select_des_text {
+    display: inline-block;
+    line-height: 30px;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+span.select_des_x {
+    display: inline-block;
+    line-height: 26px;
+    margin: 2px;
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 13px;
+    vertical-align: top;
+    color: #079eac;
+    text-align: center;
+    font-size: 24px;
+}
+.one_time {
+    transition: 0.3s;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.one_time:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.info_btn {
+    display: none;
+}
+
+div#select_des {
+    background-color: #38056d;
+}
+div#btn_1 {
+    padding: 0 40px;
+    background: rgb(56, 5, 108);
+    color: rgb(245, 245, 245);
+    border-radius: 4px;
+}
+
+div#btn_can {
+    padding: 0 40px;
+    background: rgb(204, 200, 255);
+    color: rgb(245, 245, 245);
+}
+.one_time_out {
+    background-color: #38056d;
+}
+
+div#header {
+    background: #38056d;
+}
+
+[type="checkbox"].filled-in:checked+label:after {
+    background-color: #38056d;
+    border: 2px solid #38056d;
+}
+
+.ye_bl {
+    background-color: #38056d;
+}
+
+.one_time.selecteda {
+    background-color: #38056d;
+}
+
+.one_time.selecteda:hover {
+    background-color: #38056d;
+}
+
+.time-refresh {
+    background-color: #38056d;
+}
+
+.time-left, .time-right {
+    background-color: #38056d;
+}
+
+.gr_bl {
+    background-color: #bfbfbf;
+}
+
+.logo_text {
+    color: #79ff3b;
+}
+
+.time-left:hover, .time-refresh:hover,.time-right:hover {
+    color: #79ff3b;
+}
+.one_time_out.didi {
+    background-color: #79ff3b;
+    color: #38056d;
+}
+
+.one_time_out.didi span {
+    color: #38056d;
+}
+span.select_des_x {
+    color: #38056d;
+}
