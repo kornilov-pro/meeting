@@ -184,10 +184,17 @@ div#one_time_out_block {
 
 .one_time.another {
 	background-color: #ae0000;
+	position: relative;
 }
+
+.one_time.another:hover {
+	background-color: #ae0000;
+}
+
 .right-und_head {
 	margin-top: 20px;
 }
+
 .gr_bl {
 	width: 20px;
 	height: 20px;
@@ -294,10 +301,6 @@ div#btn_can {
 	font-weight: bold;
 }
 
-.one_time.another {
-	position: relative;
-}
-
 .one_time span {
 	position: absolute;
 	top: -20px;
@@ -311,6 +314,7 @@ div#btn_can {
 	border-radius: 10px;
 	left: -8px;
 	display: none;
+	z-index: 10;
 }
 
 .one_time span:after {
@@ -321,9 +325,7 @@ div#btn_can {
 	bottom: -12px;
 	left: 12px;
 }
-.one_time span {
-	z-index: 10;
-}
+
 .bg_bg {
 	position: fixed;
 	top: 0;
