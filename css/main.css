@@ -317,6 +317,10 @@ div#btn_can {
 	z-index: 10;
 }
 
+.one_time:hover span {
+	display: inline;
+}
+
 .one_time span:after {
 	border: 6px solid transparent;
 	border-top: 6px solid #333;

@@ -36,13 +36,6 @@ function subscribeRows() {
 			$(this).html("<span>" + n + "</span>");
 		}
 	});
-	$(".one_time").click(function () {
-		var n = $(this).attr("data-user");
-		$(".one_time span").fadeOut(0);
-		if (n != null) {
-			$(this).find("span").fadeIn(0);
-		}
-	});
 
 	$(".info_btn").each(function () {
 		$(this).click(function () {
