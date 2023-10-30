@@ -4,6 +4,7 @@
 /// <reference path="./rowTemplate.js" />
 /// <reference path="./utils.js" />
 /// <reference path="./subscribeRows.js" />
+/// <reference path="./getHighlightedLocation.js" />
 
 /**
  *
@@ -23,7 +24,7 @@
 async function loadGroupedData(start, end, force) {
 	var data = CONFIG["use_test_data"] ? await fetchTestData(start, end, force) : await fetchData(start, end, force);
 	var entries = Object.entries(data).map(([location, { meeting_email, events }]) => [
-		location,
+		location.trim(),
 		{
 			meeting_email,
 			events: events.map(({ subject, start, end }) => ({
@@ -96,6 +97,8 @@ async function render(force) {
 		.join("");
 
 	document.getElementById("rows-container").innerHTML = html;
+
+    // if (highlighted) $("#rows-container").scrollTo($(`.one_stoke[data-floor="${highlighted}"]`)) // console.log($(`.one_stoke[data-floor="${highlighted}"]`)[0])
 
 	subscribeRows();
 	doNum();
