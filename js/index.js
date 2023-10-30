@@ -46,6 +46,7 @@ $(document).ready(function () {
 		$(".one_stoke").each(function () {
 			$(this).removeClass("disable");
 		});
+		$("#select_des_right").fadeOut(300);
 	});
 	$(".one_time_out").each(function (i) {
 		var n = i + 1;
