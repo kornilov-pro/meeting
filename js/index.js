@@ -30,7 +30,6 @@ $(document).ready(function () {
 });
 $(window).resize(function () {
 	var wh = $(window).height();
-	console.log(wh);
 	var bh = wh - 320;
 	$("#rows-container").height(bh);
 });
