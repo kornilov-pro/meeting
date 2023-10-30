@@ -98,7 +98,11 @@ async function render(force) {
 
 	document.getElementById("rows-container").innerHTML = html;
 
-    // if (highlighted) $("#rows-container").scrollTo($(`.one_stoke[data-floor="${highlighted}"]`)) // console.log($(`.one_stoke[data-floor="${highlighted}"]`)[0])
+	if (highlighted) {
+		var highlightedElement = $(`.one_stoke[data-floor="${highlighted}"]`);
+		if (highlightedElement.length)
+			$("#rows-container").animate({ scrollTop: highlightedElement.offset().top - 300 }, 1000);
+	}
 
 	subscribeRows();
 	doNum();
