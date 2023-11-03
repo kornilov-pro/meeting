@@ -16,7 +16,6 @@ class CacheEventsFromEWS {
 
     /**
      * 
-     * @param array<string, string>[] $meetings 
      * @param DateTime $start 
      * @param DateTime $end 
      * @return void

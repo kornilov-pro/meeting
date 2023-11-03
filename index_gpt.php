@@ -57,7 +57,7 @@ if ($authConfig["enable"] && !$isLeaderMapTokenValid($token)) {
 $isInCacheRange = $cacheStart <= $start && $end <= $cacheEnd;
 $useCache = $cacheEnable && $isInCacheRange;
 
-if ($useCache && $force) $cacheEvents($meetings, $cacheStart, $cacheEnd);
+if ($useCache && $force) $cacheEvents($cacheStart, $cacheEnd);
 
 $result = $useCache ? $getCachedEvents($start, $end) : $getEwsEvents($start, $end);
 usort($result, function (Event $a, Event $b) { // sort by start
