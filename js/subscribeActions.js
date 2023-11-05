@@ -14,6 +14,7 @@ function subscribeActions() {
 	$("#btn_can").click(cancel);
 
 	$("#btn_1").click(function () {
+		if ($("#btn_1").hasClass("disable")) return;
 		var events = selectedStore.map(({ start, end, location, meeting_email }) => ({
 			eventName: "Бронирование",
 			start: new Date(start),

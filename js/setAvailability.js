@@ -3,6 +3,7 @@
 
 function setAvailability() {
 	setLocationsAvailability();
+	setActionButtonsAvailability();
 	$(".one_time.disable").removeClass("disable");
 	if (!selectedStore.length) return;
 	var sortedByStart = selectedStore
@@ -17,6 +18,11 @@ function setAvailability() {
 		var isEnabled = start == elStart || start == elEnd || end == elStart || end == elEnd;
 		if (!isEnabled) $(this).addClass("disable");
 	});
+}
+
+function setActionButtonsAvailability() {
+	if (selectedStore.length) $("#btn_1, #btn_can").removeClass("disable");
+	else $("#btn_1, #btn_can").addClass("disable");
 }
 
 async function setLocationsAvailability() {

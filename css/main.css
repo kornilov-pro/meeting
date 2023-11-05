@@ -260,6 +260,7 @@ div#btn_1 {
 	padding: 0 40px;
 	border-radius: 4px;
 	cursor: pointer;
+	transition: background 0.5s;
 }
 
 div#btn_can {
@@ -268,11 +269,19 @@ div#btn_can {
 	height: 40px;
 	line-height: 40px;
 	color: rgb(245, 245, 245);
-	background: rgb(204, 200, 255);
+	background: rgb(56, 5, 108);
 	padding: 0 40px;
 	border-radius: 4px;
 	cursor: pointer;
+	transition: background 0.5s;
 }
+
+div#btn_1.disable,
+div#btn_can.disable {
+	background: rgb(204, 200, 255);
+	cursor: default;
+}
+
 .timer {
 	margin-top: 20px;
 	display: flex;
