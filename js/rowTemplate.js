@@ -37,9 +37,7 @@ function columnTemplate(location, meeting_email, start, end, user = "", selected
  * @returns {string}
  */
 function rowTemplate(location, meeting_email, date, events, selected, disable) {
-	var maxDate = withTime(date, 23, 59, 59);
 	var columns = TIME_COLUMNS.map(([h, m]) => withTime(date, h, m))
-		.concat([maxDate])
 		.map(pairwise)
 		.filter(([last]) => last)
 		.map(([start, end]) => [start, end, events.find(isInInterval({ start, end }))])
