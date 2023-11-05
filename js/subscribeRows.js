@@ -11,6 +11,8 @@ function subscribeRows() {
 	});
 	$(".one_time").each(function () {
 		$(this).click(function () {
+			if ($(this).hasClass("disable")) return;
+			if ($(this).hasClass("another")) return;
 			var attrLocation = $(this).attr("data-location");
 			var attrStart = $(this).attr("data-start");
 			var attrEnd = $(this).attr("data-end");
@@ -27,6 +29,7 @@ function subscribeRows() {
 				$(this).addClass("selecteda");
 				selectedStore = [...selectedStore, { start: attrStart, end: attrEnd, location: attrLocation, meeting_email }];
 			}
+			setAvailability();
 		});
 	});
 

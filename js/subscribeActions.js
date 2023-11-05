@@ -8,6 +8,7 @@ function subscribeActions() {
 		$(".one_time").each(function () {
 			$(this).removeClass("selecteda");
 		});
+		setAvailability();
 	}
 
 	$("#btn_can").click(cancel);

@@ -33,10 +33,9 @@ function columnTemplate(location, meeting_email, start, end, user = "", selected
  * @param {Date} date
  * @param {{user: string, start: Date, end: Date, meeting_email: string}[]} events
  * @param {{start: string, end: string, location: string, meeting_email: string}[]} selected
- * @param {boolean} disable
  * @returns {string}
  */
-function rowTemplate(location, meeting_email, date, events, selected, disable) {
+function rowTemplate(location, meeting_email, date, events, selected) {
 	var columns = TIME_COLUMNS.map(([h, m]) => withTime(date, h, m))
 		.map(pairwise)
 		.filter(([last]) => last)
@@ -44,8 +43,7 @@ function rowTemplate(location, meeting_email, date, events, selected, disable) {
 		.map(([start, end, event]) => [start, end, event ? event.user : ""])
 		.map(([start, end, user]) => columnTemplate(location, meeting_email, start, end, user, selected))
 		.join("");
-	var disableClass = disable ? " disable" : "";
-	return /*html*/ `<div class="one_stoke${disableClass}" data-floor="${location}">
+	return /*html*/ `<div class="one_stoke" data-floor="${location}">
 	<div class="row">
 		<div class="col l4">
 			<div class="info_btn" data-title="${location}">

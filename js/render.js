@@ -90,10 +90,9 @@ async function render(force) {
 	var highlighted = await getHighlightedLocation();
 	var html = Object.entries(groupedData)
 		.filter(([location]) => selectedLocation == "all" || location == selectedLocation)
-		.map(([location, { meeting_email, events }]) => {
-			var disable = highlighted && location != highlighted;
-			return rowTemplate(location, meeting_email, selectedDate, events, selectedStore, disable);
-		})
+		.map(([location, { meeting_email, events }]) =>
+			rowTemplate(location, meeting_email, selectedDate, events, selectedStore)
+		)
 		.join("");
 
 	document.getElementById("rows-container").innerHTML = html;
@@ -103,7 +102,7 @@ async function render(force) {
 		if (highlightedElement.length)
 			$("#rows-container").animate({ scrollTop: highlightedElement.offset().top - 300 }, 1000);
 	}
-
+	setAvailability();
 	subscribeRows();
 	doNum();
 }
