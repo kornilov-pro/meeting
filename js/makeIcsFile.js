@@ -37,7 +37,7 @@ LOCATION:${location || ""}
 ORGANIZER:${organizer || ""}
 STATUS:${status || "CONFIRMED"}
 PRIORITY:${priority || 0}
-ATTENDEE;CN=${meeting_email};RSVP=FALSE:mailto:${meeting_email}
+ATTENDEE;CN=${meeting_email};CUTYPE=RESOURCE;ROLE=NON-PARTICIPANT;RSVP=TRUE:mailto:${meeting_email}
 END:VEVENT
 `;
 }
