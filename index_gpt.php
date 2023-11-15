@@ -48,8 +48,10 @@ $headers = getallheaders() ?? [];
 $urlToken = $url_token_fieldname && array_key_exists($url_token_fieldname, $_GET) ? $_GET[$url_token_fieldname] : "";
 $headerToken = $header_token_fieldname && array_key_exists($header_token_fieldname, $headers) ? $headers[$header_token_fieldname] : "";
 $token = $urlToken ? $urlToken : $headerToken;
+$public_token = $authConfig["public_token"];
+$isPublicTokenApplied = $public_token && $token == $public_token;
 
-if ($authConfig["enable"] && !$isLeaderMapTokenValid($token)) {
+if ($authConfig["enable"] && !$isPublicTokenApplied && !$isLeaderMapTokenValid($token)) {
     header("HTTP/1.1 403 Forbidden");
     die();
 }

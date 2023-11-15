@@ -23,7 +23,8 @@ return [
         "leadermap_workspace_id" => 1,
         "leadermap_bootstrap_filename" => "C:\inetpub\windemoadmin\www\__bootstrap.php",
         "url_token_fieldname" => "token",
-        "header_token_fieldname" => "Token"
+        "header_token_fieldname" => "Token",
+        "public_token" => "authorization-public-token",
     ],
     // E-mail пользователей, для отображения событий, все они должны поделиться своими календарями с юзером указанным в ews.email
     "meetings" => [
