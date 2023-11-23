@@ -15,6 +15,8 @@ error_reporting(E_ALL);
 require_once __DIR__  . "/vendor/autoload.php";
 require_once __DIR__  . "/Encryption.php";
 
+if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") die();
+
 // Configuration
 $config = require_once(__DIR__ . "/config.php");
 $authConfig = $config["auth"];
